@@ -9,7 +9,9 @@ public class User {
     private String password;
     private String salt;
     private String email;
+    // TODO
     private int type;
+    // 0-未激活 1-已经激活
     private int status;
     private String activationCode;
     private String headerUrl;
