@@ -35,5 +35,6 @@ build/
 ## local
 .DS_Store
 
-## log
-*.log
+## data
+/data
+
