@@ -129,5 +129,21 @@ public class MapperTests {
 
     }
 
+    // TODO send message
+
+    @Test
+    public void sendMessage() {
+        Message message = new Message();
+        String content = "你好";
+        message.setFromId(111);
+        message.setContent(content);
+        message.setToId(112);
+        message.setConversationId(message.getFromId() + "_" + message.getFromId());
+        message.setContent(content);
+        message.setCreateTime(new Date());
+        messageMapper.insertMessage(message);
+        System.out.println(message);
+    }
+
 
 }

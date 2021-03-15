@@ -70,6 +70,7 @@
         values(#{fromId},#{toId},#{conversationId},#{content},#{status},#{createTime})
     </insert>
 
+    <!-- update a banch of messages  -->
     <update id="updateStatus">
         update message set status = #{status}
         where id in
