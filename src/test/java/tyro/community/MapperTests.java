@@ -99,4 +99,7 @@ public class MapperTests {
         System.out.println(loginTicket);
     }
 
+    //TODO test insert discussion post
+
+
 }

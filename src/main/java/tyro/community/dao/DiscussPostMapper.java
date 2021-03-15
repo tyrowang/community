@@ -15,5 +15,10 @@ public interface DiscussPostMapper {
     // if there is not one parameter, and it's used in <if>, it must be added
     int selectDiscussPostRows(@Param("userId") int userId);
 
+    int insertDiscussPost(DiscussPost discussPost);
+
+    DiscussPost selectDiscussPostById(int id);
+
+    int updateCommentCount(int id, int commentCount);
 
 }

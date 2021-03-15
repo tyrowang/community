@@ -72,14 +72,14 @@
                         <a class="nav-link" href="#">最热</a>
                     </li>
                 </ul>
-                <button type="button" class="btn btn-primary btn-sm position-absolute rt-0" data-toggle="modal" data-target="#publishModal">我要发布</button>
+                <button type="button" class="btn btn-primary btn-sm position-absolute rt-0" data-toggle="modal" data-target="#publishModal" th:if="${loginUser!=null}">我要发布</button>
             </div>
             <!-- 弹出框 -->
             <div class="modal fade" id="publishModal" tabindex="-1" role="dialog" aria-labelledby="publishModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="publishModalLabel">新帖发布</h5>
+                            <h5 class="modal-title" id="publishModalLabel" >新帖发布</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -126,23 +126,24 @@
                     <div class="media-body">
                         <h6 class="mt-0 mb-3">
                             <!--utext可以显示转移字符 eg &lt; -->
-                            <a href="#" th:utext="${map.post.title}">备战春招，面试刷题跟他复习，一个月全搞定！</a>
+                            <!-- 利用||连接常亮和变量 -->
+                            <a th:href="@{|/discuss/detail/${map.post.id}|}" th:utext="${map.post.title}">备战春招，面试刷题跟他复习，一个月全搞定！</a>
                             <span class="badge badge-secondary bg-primary" th:if="${map.post.type==1}">置顶</span>
                             <span class="badge badge-secondary bg-danger" th:if="${map.post.status==1}">精华</span>
                         </h6>
                         <div class="text-muted font-size-12">
                             <u class="mr-3" th:utext="${map.user.username}">寒江雪</u> 发布于 <b th:text="${#dates.format(map.post.createTime,'yyyy-MM-dd HH:mm:ss')}">2019-04-15 15:32:18</b>
                             <ul class="d-inline float-right">
-                                <li class="d-inline ml-2">赞 11</li>
+                                <li class="d-inline ml-2">赞 10000</li>
                                 <li class="d-inline ml-2">|</li>
-                                <li class="d-inline ml-2">回帖 7</li>
+                                <li class="d-inline ml-2">回帖 10000</li>
                             </ul>
                         </div>
                     </div>
                 </li>
             </ul>
             <!-- 分页 -->
-            <nav class="mt-5" th:if="${page.rows>0}">
+            <nav class="mt-5" th:if="${page.rows>0}" th:fragment="pagination">
                 <ul class="pagination justify-content-center">
                     <li class="page-item">
                         <!-- /index?current=1 -->
@@ -153,8 +154,8 @@
                     <!-- numbers.sequence return a array inclusively-->
                     <!-- usage of | ?-->
                     <li th:class="|page-item ${i==page.current?'active':''}|" th:each="i:${#numbers.sequence(page.from,page.to)}">
-                        <!--TODO goto certain page-->
-                        <a class="page-link" href="#" th:text="${i}">1</a>
+                        <!--Fix the bug: goto certain page-->
+                        <a class="page-link" th:href="@{${page.path}(current=${i})}" th:text="${i}">1</a>
                     </li>
                     <li th:class="|page-item ${page.current==page.total?'disabled':''}|">
                         <a class="page-link" th:href="@{${page.path}(current=${page.current+1})}">下一页</a>
@@ -235,6 +236,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
 <!-- 引用本地资源 -->
 <script th:src="@{/js/global.js}"></script>
-<script th:src="@{js/index.js}"></script>
+<script th:src="@{/js/index.js}"></script>
 </body>
 </html>
